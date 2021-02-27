@@ -110,9 +110,9 @@ class _YoYoPlayerState extends State<YoYoPlayer>
   // video vuration second
   double videoDurationSecond;
   //m3u8 data video list for user chooice
-  List<M3U8pass> yoyo = List();
+  List<M3U8pass> yoyo = [];
   // m3u8 audio list
-  List<AUDIO> audioList = List();
+  List<AUDIO> audioList = [];
   // m3u8 temp data
   String m3u8Content;
   // subtitle temp data
@@ -490,7 +490,7 @@ class _YoYoPlayerState extends State<YoYoPlayer>
 // video Listener
   void listener() async {
     if (controller.value.initialized && controller.value.isPlaying) {
-      if (!await Wakelock.isEnabled) {
+      if (!await Wakelock.enabled) {
         await Wakelock.enable();
       }
       setState(() {
@@ -500,7 +500,7 @@ class _YoYoPlayerState extends State<YoYoPlayer>
         videoDurationSecond = controller.value.duration.inSeconds.toDouble();
       });
     } else {
-      if (await Wakelock.isEnabled) {
+      if (await Wakelock.enabled) {
         await Wakelock.disable();
         setState(() {});
       }
